@@ -7,3 +7,5 @@
 * [week2](timetable_2w.md)
 
 * [week3](timetable_3w.md)
+
+![alt text](face.webp)
