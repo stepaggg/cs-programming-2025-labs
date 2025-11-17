@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from docx import Document
 from docx.shared import Inches, Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -16,111 +17,178 @@ def open_file_in_word(filename):
         print(f"✗ Не удалось открыть файл автоматически: {e}")
 
 def create_compact_report():
-    """Создание КРАТКОГО отчета (5 страниц)"""
+    """Создание КРАТКОГО отчета (5 страниц) с оригинальным форматированием"""
     
     doc = Document()
     
-    # Настройка стилей
+    # Настройка стилей - ОРИГИНАЛЬНЫЕ НАСТРОЙКИ
     style = doc.styles['Normal']
     style.font.name = 'Times New Roman'
-    style.font.size = Pt(12)  # Меньше шрифт для компактности
+    style.font.size = Pt(14)  # Оригинальный размер шрифта
     
-    # Настройка страницы
+    # Настройка страницы - ОРИГИНАЛЬНЫЕ ОТСТУПЫ
     section = doc.sections[0]
     section.page_height = Inches(11.7)
     section.page_width = Inches(8.3)
-    section.left_margin = Inches(1.0)
-    section.right_margin = Inches(0.8)
-    section.top_margin = Inches(0.8)
-    section.bottom_margin = Inches(0.8)
+    section.left_margin = Inches(1.5)   # 30 мм - оригинальный отступ
+    section.right_margin = Inches(0.8)  # 20 мм - оригинальный отступ
+    section.top_margin = Inches(1.2)    # Оригинальный отступ
+    section.bottom_margin = Inches(1.2) # Оригинальный отступ
     
-    # ===== ТИТУЛЬНЫЙ ЛИСТ =====
+    # ===== ТИТУЛЬНЫЙ ЛИСТ (ОРИГИНАЛЬНОЕ РАСПОЛОЖЕНИЕ) =====
     print("Создаю титульный лист...")
     
-    for _ in range(6):
+    # Оригинальные отступы для центрирования
+    for _ in range(8):
         doc.add_paragraph()
     
-    # Заголовки
-    headers = [
-        ("МИНОБРНАУКИ РОССИИ", True),
-        ("Федеральное государственное бюджетное", False),
-        ("образовательное учреждение высшего образования", False),
-        ("«ВЛАДИВОСТОКСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ»", True),
-        ("(ФГБОУ ВО «ВВГУ»)", False),
-        ("", False),
-        ("ИНСТИТУТ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ И АНАЛИЗА ДАННЫХ", True),
-        ("КАФЕДРА ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ И СИСТЕМ", True),
-    ]
+    # Заголовки учреждения
+    p1 = doc.add_paragraph()
+    p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run1 = p1.add_run("МИНОБРНАУКИ РОССИИ")
+    run1.font.size = Pt(14)
+    run1.bold = True
+    run1.font.name = 'Times New Roman'
     
-    for text, bold in headers:
-        p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        if text:
-            run = p.add_run(text)
-            run.font.size = Pt(12)
-            run.bold = bold
+    p2 = doc.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run2 = p2.add_run("Федеральное государственное бюджетное")
+    run2.font.size = Pt(14)
+    run2.font.name = 'Times New Roman'
+    
+    p3 = doc.add_paragraph()
+    p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run3 = p3.add_run("образовательное учреждение высшего образования")
+    run3.font.size = Pt(14)
+    run3.font.name = 'Times New Roman'
+    
+    p4 = doc.add_paragraph()
+    p4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run4 = p4.add_run("«ВЛАДИВОСТОКСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ»")
+    run4.font.size = Pt(14)
+    run4.bold = True
+    run4.font.name = 'Times New Roman'
+    
+    p5 = doc.add_paragraph()
+    p5.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run5 = p5.add_run("(ФГБОУ ВО «ВВГУ»)")
+    run5.font.size = Pt(14)
+    run5.font.name = 'Times New Roman'
+    
+    doc.add_paragraph()
+    
+    # Институт и кафедра
+    p6 = doc.add_paragraph()
+    p6.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run6 = p6.add_run("ИНСТИТУТ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ И АНАЛИЗА ДАННЫХ")
+    run6.font.size = Pt(14)
+    run6.bold = True
+    run6.font.name = 'Times New Roman'
+    
+    p7 = doc.add_paragraph()
+    p7.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run7 = p7.add_run("КАФЕДРА ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ И СИСТЕМ")
+    run7.font.size = Pt(14)
+    run7.bold = True
+    run7.font.name = 'Times New Roman'
     
     for _ in range(4):
         doc.add_paragraph()
     
     # Название работы
-    work_headers = [
-        ("ОТЧЕТ", True, 14),
-        ("ПО ЛАБОРАТОРНОЙ РАБОТЕ №1", True, 12),
-        ("по дисциплине", False, 12),
-        ("«Информатика и программирование»", True, 12),
-    ]
+    p8 = doc.add_paragraph()
+    p8.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run8 = p8.add_run("ОТЧЕТ")
+    run8.font.size = Pt(16)
+    run8.bold = True
+    run8.font.name = 'Times New Roman'
     
-    for text, bold, size in work_headers:
-        p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        run = p.add_run(text)
-        run.font.size = Pt(size)
-        run.bold = bold
+    p9 = doc.add_paragraph()
+    p9.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run9 = p9.add_run("ПО ЛАБОРАТОРНОЙ РАБОТЕ №1")
+    run9.font.size = Pt(14)
+    run9.bold = True
+    run9.font.name = 'Times New Roman'
     
-    for _ in range(6):
+    p10 = doc.add_paragraph()
+    p10.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run10 = p10.add_run("по дисциплине")
+    run10.font.size = Pt(14)
+    run10.font.name = 'Times New Roman'
+    
+    p11 = doc.add_paragraph()
+    p11.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run11 = p11.add_run("«Информатика и программирование»")
+    run11.font.size = Pt(14)
+    run11.bold = True
+    run11.font.name = 'Times New Roman'
+    
+    for _ in range(5):
         doc.add_paragraph()
     
     # Данные студента
-    student_info = [
-        "Студент",
-        "гр. БИН-25-2", 
-        "Ассистент",
-        "преподавателя"
-    ]
+    p12 = doc.add_paragraph()
+    p12.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run12 = p12.add_run("Студент")
+    run12.font.size = Pt(14)
+    run12.font.name = 'Times New Roman'
     
-    for text in student_info:
-        p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        run = p.add_run(text)
-        run.font.size = Pt(12)
+    p13 = doc.add_paragraph()
+    p13.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run13 = p13.add_run("гр. BDI-BDZ-21")
+    run13.font.size = Pt(14)
+    run13.font.name = 'Times New Roman'
     
-    for _ in range(2):
+    p14 = doc.add_paragraph()
+    p14.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run14 = p14.add_run("Ассистент")
+    run14.font.size = Pt(14)
+    run14.font.name = 'Times New Roman'
+    
+    p15 = doc.add_paragraph()
+    p15.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run15 = p15.add_run("преподавателя")
+    run15.font.size = Pt(14)
+    run15.font.name = 'Times New Roman'
+    
+    for _ in range(3):
         doc.add_paragraph()
     
     # Подписи
-    signatures = [
-        "_________________________",
-        "С.А. Головцов",
-        "_________________________",
-        "М.В. Водяницкий"
-    ]
+    p16 = doc.add_paragraph()
+    p16.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run16 = p16.add_run("_________________________")
+    run16.font.size = Pt(14)
+    run16.font.name = 'Times New Roman'
     
-    for text in signatures:
-        p = doc.add_paragraph()
-        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        run = p.add_run(text)
-        run.font.size = Pt(12)
+    p17 = doc.add_paragraph()
+    p17.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run17 = p17.add_run("А.И. Студент")
+    run17.font.size = Pt(14)
+    run17.font.name = 'Times New Roman'
+    
+    p18 = doc.add_paragraph()
+    p18.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run18 = p18.add_run("_________________________")
+    run18.font.size = Pt(14)
+    run18.font.name = 'Times New Roman'
+    
+    p19 = doc.add_paragraph()
+    p19.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    run19 = p19.add_run("М.В. Водяницкий")
+    run19.font.size = Pt(14)
+    run19.font.name = 'Times New Roman'
     
     for _ in range(8):
         doc.add_paragraph()
     
     # Город и год
-    p_city = doc.add_paragraph()
-    p_city.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run_city = p_city.add_run("Владивосток 2025")
-    run_city.font.size = Pt(12)
-    run_city.bold = True
+    p20 = doc.add_paragraph()
+    p20.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run20 = p20.add_run("Владивосток 2025")
+    run20.font.size = Pt(14)
+    run20.bold = True
+    run20.font.name = 'Times New Roman'
     
     # ===== КРАТКОЕ СОДЕРЖАНИЕ =====
     doc.add_page_break()
@@ -128,23 +196,24 @@ def create_compact_report():
     p_content = doc.add_paragraph()
     p_content.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run_content = p_content.add_run("СОДЕРЖАНИЕ")
-    run_content.font.size = Pt(14)
+    run_content.font.size = Pt(16)
     run_content.bold = True
+    run_content.font.name = 'Times New Roman'
     
     doc.add_paragraph()
     
     content_items = [
-        "1. Введение................................................2",
-        "2. Задание 1: Управление кондиционером....................3",
-        "3. Задание 2: Определение времени года....................3", 
-        "4. Задание 3: Расчет возраста собаки......................3",
-        "5. Задание 4: Проверка делимости на 6.....................4",
-        "6. Задание 5: Проверка надежности пароля..................4",
-        "7. Задание 6: Определение високосного года................4",
-        "8. Задание 7: Поиск наименьшего числа.....................5",
-        "9. Задание 8: Расчет скидки в магазине....................5",
-        "10. Задание 9: Определение времени суток..................5",
-        "11. Задание 10: Проверка простого числа...................5"
+        "1. Введение........................................................2",
+        "2. Задание 1: Управление кондиционером............................3",
+        "3. Задание 2: Определение времени года............................3", 
+        "4. Задание 3: Расчет возраста собаки..............................4",
+        "5. Задание 4: Проверка делимости на 6.............................4",
+        "6. Задание 5: Проверка надежности пароля..........................5",
+        "7. Задание 6: Определение високосного года........................5",
+        "8. Задание 7: Поиск наименьшего числа.............................5",
+        "9. Задание 8: Расчет скидки в магазине............................6",
+        "10. Задание 9: Определение времени суток..........................6",
+        "11. Задание 10: Проверка простого числа...........................6"
     ]
     
     for item in content_items:
@@ -157,172 +226,270 @@ def create_compact_report():
     p_intro = doc.add_paragraph()
     p_intro.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run_intro = p_intro.add_run("1. ВВЕДЕНИЕ")
-    run_intro.font.size = Pt(14)
+    run_intro.font.size = Pt(16)
     run_intro.bold = True
+    run_intro.font.name = 'Times New Roman'
     
     doc.add_paragraph()
     
     intro_text = [
-        "Цель: освоение базовых конструкций Python и условных операторов.",
+        "Цель лабораторной работы: освоение базовых конструкций языка Python",
+        "и разработка практических задач с использованием условных операторов.",
         "",
-        "Задачи:",
-        "• Разработка 10 практических задач",
-        "• Изучение условных операторов if-else", 
-        "• Работа с пользовательским вводом",
+        "Задачи работы:",
+        "1. Изучение синтаксиса Python",
+        "2. Разработка 10 практических задач", 
+        "3. Освоение работы с условными операторами if-else",
+        "4. Разработка программ с пользовательским вводом",
         "",
-        "Технологии: Python 3.x, стандартные библиотеки."
+        "Лабораторная работа выполнена в среде программирования Python 3.x",
+        "с использованием стандартных библиотек языка."
     ]
     
     for text in intro_text:
         p = doc.add_paragraph(text)
-        p.paragraph_format.line_spacing = 1.0
+        p.paragraph_format.line_spacing = 1.5
     
     # ===== КОМПАКТНЫЕ ЗАДАНИЯ =====
     doc.add_page_break()
     
-    # Группируем задания по 2 на страницу
+    # Группируем задания компактно
     compact_tasks = [
         {
             "number": "2",
-            "title": "Управление кондиционером",
-            "code": '''temp = float(input("Температура: "))
-print("Выключен" if temp >= 20 else "Включен")''',
-            "explanation": "Кондиционер включается при температуре ниже 20°C"
+            "title": "ЗАДАНИЕ 1: УПРАВЛЕНИЕ КОНДИЦИОНЕРОМ",
+            "code": '''def task1():
+    temp = float(input("Введите температуру: "))
+    print("Кондиционер выключен" if temp >= 20 else "Кондиционер включен")''',
+            "explanation": "Программа управляет кондиционером на основе температуры. При температуре 20°C и выше кондиционер выключается, при меньшей температуре - включается."
         },
         {
             "number": "3", 
-            "title": "Определение времени года",
-            "code": '''month = int(input("Месяц: "))
-if month in [12,1,2]: print("Зима")
-elif month in [3,4,5]: print("Весна") 
-elif month in [6,7,8]: print("Лето")
-else: print("Осень")''',
-            "explanation": "Определение сезона по номеру месяца"
+            "title": "ЗАДАНИЕ 2: ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ГОДА",
+            "code": '''def task2():
+    month = int(input("Введите номер месяца: "))
+    if month in [12, 1, 2]:
+        print("Это зима")
+    elif month in [3, 4, 5]:
+        print("Это весна")
+    elif month in [6, 7, 8]:
+        print("Это лето")
+    else:
+        print("Это осень")''',
+            "explanation": "Программа определяет время года по номеру месяца. Зима: 12,1,2; Весна: 3,4,5; Лето: 6,7,8; Осень: 9,10,11."
         },
         {
             "number": "4",
-            "title": "Расчет возраста собаки",
-            "code": '''age = float(input("Возраст собаки: "))
-if age <= 2: result = age * 10.5
-else: result = 21 + (age - 2) * 4
-print(f"Человеческих лет: {result}")''',
-            "explanation": "Первые 2 года = 10.5 чел.лет, далее = 4 чел.года"
-        },
-        {
-            "number": "5",
-            "title": "Проверка делимости на 6", 
-            "code": '''num = input("Число: ")
-last = int(num[-1])
-total = sum(int(d) for d in num)
-if last % 2 == 0 and total % 3 == 0:
-    print("Делится на 6")''',
-            "explanation": "Делится если: четное И сумма цифр делится на 3"
-        },
-        {
-            "number": "6",
-            "title": "Проверка надежности пароля",
-            "code": '''pwd = input("Пароль: ")
-errors = []
-if len(pwd) < 8: errors.append("короткий")
-if not any(c.isupper() for c in pwd): errors.append("нет заглавных")
-if not any(c.islower() for c in pwd): errors.append("нет строчных") 
-if not any(c.isdigit() for c in pwd): errors.append("нет цифр")
-if pwd.isalnum(): errors.append("нет спецсимволов")
-print("Надежный" if not errors else "Ненадежный")''',
-            "explanation": "Проверка 5 критериев надежности пароля"
+            "title": "ЗАДАНИЕ 3: РАСЧЕТ ВОЗРАСТА СОБАКИ",
+            "code": '''def task3():
+    age = float(input("Введите возраст собаки: "))
+    if age <= 2:
+        result = age * 10.5
+    else:
+        result = 21 + (age - 2) * 4
+    print(f"Возраст в человеческих годах: {result}")''',
+            "explanation": "Перевод возраста собаки в человеческие годы. Первые 2 года: каждый год = 10.5 человеческих лет, последующие: каждый год = 4 человеческих года."
         }
     ]
     
-    # Добавляем первые 5 заданий на одну страницу
+    # Добавляем первые 3 задания
     print("Создаю компактные задания...")
     
     for task in compact_tasks:
         # Заголовок задания
         p_title = doc.add_paragraph()
+        p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
         run_title = p_title.add_run(f"{task['number']}. {task['title']}")
-        run_title.font.size = Pt(12)
+        run_title.font.size = Pt(14)
         run_title.bold = True
+        run_title.font.name = 'Times New Roman'
         
-        # Код (компактный)
+        doc.add_paragraph()
+        
+        # Код
+        p_code_title = doc.add_paragraph("Код программы:")
+        p_code_title.style = doc.styles['Normal']
+        
         p_code = doc.add_paragraph(task['code'])
         p_code.style = doc.styles['Normal']
         
+        doc.add_paragraph()
+        
         # Объяснение
-        p_expl = doc.add_paragraph(task['explanation'])
+        p_expl = doc.add_paragraph("Объяснение:")
         p_expl.style = doc.styles['Normal']
         
-        doc.add_paragraph()  # Маленький отступ между заданиями
+        p_expl_text = doc.add_paragraph(task['explanation'])
+        p_expl_text.style = doc.styles['Normal']
+        p_expl_text.paragraph_format.line_spacing = 1.5
+        
+        doc.add_paragraph()
     
     # ===== ВТОРАЯ СТРАНИЦА С ЗАДАНИЯМИ =====
     doc.add_page_break()
     
     more_compact_tasks = [
         {
-            "number": "7",
-            "title": "Определение високосного года",
-            "code": '''year = int(input("Год: "))
-if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
-    print("Високосный")''',
-            "explanation": "Високосный если: (делится на 4 И не на 100) ИЛИ делится на 400"
+            "number": "5",
+            "title": "ЗАДАНИЕ 4: ПРОВЕРКА ДЕЛИМОСТИ НА 6",
+            "code": '''def task4():
+    num = input("Введите число: ")
+    last_digit = int(num[-1])
+    digit_sum = sum(int(d) for d in num)
+    
+    if last_digit % 2 == 0 and digit_sum % 3 == 0:
+        print("Делится на 6")
+    else:
+        print("Не делится на 6")''',
+            "explanation": "Проверка делимости на 6. Число делится на 6 если: оно четное (последняя цифра делится на 2) И сумма цифр делится на 3."
         },
         {
-            "number": "8", 
-            "title": "Поиск наименьшего числа",
-            "code": '''a, b, c = map(float, input("3 числа: ").split())
-min_num = a
-if b < min_num: min_num = b
-if c < min_num: min_num = c
-print(f"Наименьшее: {min_num}")''',
-            "explanation": "Последовательное сравнение трех чисел"
-        },
-        {
-            "number": "9",
-            "title": "Расчет скидки в магазине",
-            "code": '''amount = float(input("Сумма: "))
-if amount < 1000: discount = 0
-elif amount <= 5000: discount = 5
-elif amount <= 10000: discount = 10
-else: discount = 15
-print(f"Скидка: {discount}%")''',
-            "explanation": "Скидки: 0-5-10-15% в зависимости от суммы"
-        },
-        {
-            "number": "10",
-            "title": "Определение времени суток", 
-            "code": '''hour = int(input("Час: "))
-if 0 <= hour <= 5: print("Ночь")
-elif 6 <= hour <= 11: print("Утро")
-elif 12 <= hour <= 17: print("День")
-else: print("Вечер")''',
-            "explanation": "Ночь:0-5, Утро:6-11, День:12-17, Вечер:18-23"
-        },
-        {
-            "number": "11",
-            "title": "Проверка простого числа",
-            "code": '''num = int(input("Число: "))
-if num < 2: print("Не простое")
-else:
-    for i in range(2, int(num**0.5) + 1):
-        if num % i == 0: 
-            print("Составное")
-            break
-    else: print("Простое")''',
-            "explanation": "Простое число делится только на 1 и себя"
+            "number": "6", 
+            "title": "ЗАДАНИЕ 5: ПРОВЕРКА НАДЕЖНОСТИ ПАРОЛЯ",
+            "code": '''def task5():
+    pwd = input("Введите пароль: ")
+    errors = []
+    
+    if len(pwd) < 8:
+        errors.append("длина менее 8 символов")
+    if not any(c.isupper() for c in pwd):
+        errors.append("нет заглавных букв")
+    if not any(c.islower() for c in pwd):
+        errors.append("нет строчных букв")
+    if not any(c.isdigit() for c in pwd):
+        errors.append("нет цифр")
+    if pwd.isalnum():
+        errors.append("нет спецсимволов")
+    
+    if errors:
+        print("Пароль ненадежный:", ", ".join(errors))
+    else:
+        print("Пароль надежный")''',
+            "explanation": "Проверка пароля по критериям: длина ≥8, есть заглавные и строчные буквы, есть цифры, есть спецсимволы."
         }
     ]
     
-    # Добавляем остальные задания
+    # Добавляем задания 4-5
     for task in more_compact_tasks:
         p_title = doc.add_paragraph()
+        p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
         run_title = p_title.add_run(f"{task['number']}. {task['title']}")
-        run_title.font.size = Pt(12)
+        run_title.font.size = Pt(14)
         run_title.bold = True
+        run_title.font.name = 'Times New Roman'
         
+        doc.add_paragraph()
+        
+        p_code_title = doc.add_paragraph("Код программы:")
         p_code = doc.add_paragraph(task['code'])
-        p_code.style = doc.styles['Normal']
         
+        doc.add_paragraph()
+        
+        p_expl_title = doc.add_paragraph("Объяснение:")
         p_expl = doc.add_paragraph(task['explanation'])
-        p_expl.style = doc.styles['Normal']
+        p_expl.paragraph_format.line_spacing = 1.5
+        
+        doc.add_paragraph()
+    
+    # ===== ТРЕТЬЯ СТРАНИЦА С ЗАДАНИЯМИ =====
+    doc.add_page_break()
+    
+    final_tasks = [
+        {
+            "number": "7",
+            "title": "ЗАДАНИЕ 6: ОПРЕДЕЛЕНИЕ ВИСОКОСНОГО ГОДА",
+            "code": '''def task6():
+    year = int(input("Введите год: "))
+    if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+        print(f"{year} - високосный")
+    else:
+        print(f"{year} - невисокосный")''',
+            "explanation": "Определение високосного года. Год високосный если: делится на 4 И не делится на 100, ИЛИ делится на 400."
+        },
+        {
+            "number": "8", 
+            "title": "ЗАДАНИЕ 7: ПОИСК НАИМЕНЬШЕГО ЧИСЛА",
+            "code": '''def task7():
+    a, b, c = map(float, input("Введите три числа: ").split())
+    min_num = a
+    if b < min_num:
+        min_num = b
+    if c < min_num:
+        min_num = c
+    print(f"Наименьшее: {min_num}")''',
+            "explanation": "Поиск наименьшего из трех чисел. Алгоритм последовательно сравнивает числа и обновляет минимальное значение."
+        },
+        {
+            "number": "9",
+            "title": "ЗАДАНИЕ 8: РАСЧЕТ СКИДКИ В МАГАЗИНЕ",
+            "code": '''def task8():
+    amount = float(input("Введите сумму покупки: "))
+    if amount < 1000:
+        discount = 0
+    elif amount <= 5000:
+        discount = 5
+    elif amount <= 10000:
+        discount = 10
+    else:
+        discount = 15
+    
+    total = amount * (1 - discount / 100)
+    print(f"Скидка: {discount}%")
+    print(f"К оплате: {total}")''',
+            "explanation": "Расчет скидки в зависимости от суммы покупки: до 1000р - 0%, 1000-5000р - 5%, 5000-10000р - 10%, свыше 10000р - 15%."
+        },
+        {
+            "number": "10",
+            "title": "ЗАДАНИЕ 9: ОПРЕДЕЛЕНИЕ ВРЕМЕНИ СУТОК", 
+            "code": '''def task9():
+    hour = int(input("Введите час (0-23): "))
+    if 0 <= hour <= 5:
+        print("Ночь")
+    elif 6 <= hour <= 11:
+        print("Утро")
+    elif 12 <= hour <= 17:
+        print("День")
+    else:
+        print("Вечер")''',
+            "explanation": "Определение времени суток по часу: 0-5 - ночь, 6-11 - утро, 12-17 - день, 18-23 - вечер."
+        },
+        {
+            "number": "11",
+            "title": "ЗАДАНИЕ 10: ПРОВЕРКА ПРОСТОГО ЧИСЛА",
+            "code": '''def task10():
+    num = int(input("Введите число: "))
+    if num < 2:
+        print("Не простое")
+        return
+    
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            print(f"{num} - составное")
+            return
+    print(f"{num} - простое")''',
+            "explanation": "Проверка числа на простоту. Число простое если делится только на 1 и на себя. Проверка делителей от 2 до √n."
+        }
+    ]
+    
+    # Добавляем остальные задания компактно
+    for task in final_tasks:
+        p_title = doc.add_paragraph()
+        p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run_title = p_title.add_run(f"{task['number']}. {task['title']}")
+        run_title.font.size = Pt(14)
+        run_title.bold = True
+        run_title.font.name = 'Times New Roman'
+        
+        doc.add_paragraph()
+        
+        p_code_title = doc.add_paragraph("Код программы:")
+        p_code = doc.add_paragraph(task['code'])
+        
+        doc.add_paragraph()
+        
+        p_expl_title = doc.add_paragraph("Объяснение:")
+        p_expl = doc.add_paragraph(task['explanation'])
+        p_expl.paragraph_format.line_spacing = 1.5
         
         doc.add_paragraph()
     
