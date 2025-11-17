@@ -16,86 +16,102 @@ def open_file_in_word(filename):
     except Exception as e:
         print(f"✗ Не удалось открыть файл автоматически: {e}")
 
-def create_compact_report():
-    """Создание КРАТКОГО отчета (5 страниц) с оригинальным форматированием"""
+def create_complete_report():
+    """Создание ПОЛНОГО отчета с титульным листом и всей работой"""
     
     doc = Document()
     
-    # Настройка стилей - ОРИГИНАЛЬНЫЕ НАСТРОЙКИ
+    # Настройка стилей
     style = doc.styles['Normal']
     style.font.name = 'Times New Roman'
-    style.font.size = Pt(14)  # Оригинальный размер шрифта
+    style.font.size = Pt(14)
     
-    # Настройка страницы - ОРИГИНАЛЬНЫЕ ОТСТУПЫ
+    # Настройка страницы
     section = doc.sections[0]
     section.page_height = Inches(11.7)
     section.page_width = Inches(8.3)
-    section.left_margin = Inches(1.5)   # 30 мм - оригинальный отступ
-    section.right_margin = Inches(0.8)  # 20 мм - оригинальный отступ
-    section.top_margin = Inches(1.2)    # Оригинальный отступ
-    section.bottom_margin = Inches(1.2) # Оригинальный отступ
+    section.left_margin = Inches(1.5)
+    section.right_margin = Inches(0.8)
+    section.top_margin = Inches(1.2)
+    section.bottom_margin = Inches(1.2)
     
-    # ===== ТИТУЛЬНЫЙ ЛИСТ (ОРИГИНАЛЬНОЕ РАСПОЛОЖЕНИЕ) =====
+    # ===== ТОЧНЫЙ ТИТУЛЬНЫЙ ЛИСТ =====
     print("Создаю титульный лист...")
     
-    # Оригинальные отступы для центрирования
-    for _ in range(8):
+    # Верхние отступы
+    for _ in range(10):
         doc.add_paragraph()
     
-    # Заголовки учреждения
+    # МИНОБРНАУКИ РОССИИ (выровнено по левому краю как в образце)
     p1 = doc.add_paragraph()
-    p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p1.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run1 = p1.add_run("МИНОБРНАУКИ РОССИИ")
     run1.font.size = Pt(14)
     run1.bold = True
     run1.font.name = 'Times New Roman'
     
+    # Федеральное государственное... (выровнено по левому краю)
     p2 = doc.add_paragraph()
-    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run2 = p2.add_run("Федеральное государственное бюджетное")
+    p2.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    run2 = p2.add_run("Федеральное государственное бюджетное образовательное учреждение")
     run2.font.size = Pt(14)
     run2.font.name = 'Times New Roman'
     
     p3 = doc.add_paragraph()
-    p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run3 = p3.add_run("образовательное учреждение высшего образования")
+    p3.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    run3 = p3.add_run("высшего образования")
     run3.font.size = Pt(14)
     run3.font.name = 'Times New Roman'
     
+    # ВГУ в кавычках (выровнено по левому краю)
     p4 = doc.add_paragraph()
-    p4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p4.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run4 = p4.add_run("«ВЛАДИВОСТОКСКИЙ ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ»")
     run4.font.size = Pt(14)
     run4.bold = True
     run4.font.name = 'Times New Roman'
     
+    # ФГБОУ ВО ВВГУ (выровнено по левому краю)
     p5 = doc.add_paragraph()
-    p5.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p5.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run5 = p5.add_run("(ФГБОУ ВО «ВВГУ»)")
     run5.font.size = Pt(14)
     run5.font.name = 'Times New Roman'
     
-    doc.add_paragraph()
+    # Отступ
+    for _ in range(2):
+        doc.add_paragraph()
     
-    # Институт и кафедра
+    # Институт и кафедра (выровнено по левому краю)
     p6 = doc.add_paragraph()
-    p6.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p6.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run6 = p6.add_run("ИНСТИТУТ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ И АНАЛИЗА ДАННЫХ")
     run6.font.size = Pt(14)
     run6.bold = True
     run6.font.name = 'Times New Roman'
     
     p7 = doc.add_paragraph()
-    p7.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p7.alignment = WD_ALIGN_PARAGRAPH.LEFT
     run7 = p7.add_run("КАФЕДРА ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ И СИСТЕМ")
     run7.font.size = Pt(14)
     run7.bold = True
     run7.font.name = 'Times New Roman'
     
-    for _ in range(4):
+    # Разделительная линия
+    for _ in range(3):
         doc.add_paragraph()
     
-    # Название работы
+    p_line = doc.add_paragraph()
+    p_line.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_line = p_line.add_run("―" * 50)
+    run_line.font.size = Pt(14)
+    run_line.font.name = 'Times New Roman'
+    
+    # Отступ после линии
+    for _ in range(3):
+        doc.add_paragraph()
+    
+    # ОТЧЕТ (по центру)
     p8 = doc.add_paragraph()
     p8.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run8 = p8.add_run("ОТЧЕТ")
@@ -103,6 +119,7 @@ def create_compact_report():
     run8.bold = True
     run8.font.name = 'Times New Roman'
     
+    # ПО ЛАБОРАТОРНОЙ РАБОТЕ (по центру)
     p9 = doc.add_paragraph()
     p9.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run9 = p9.add_run("ПО ЛАБОРАТОРНОЙ РАБОТЕ №1")
@@ -110,12 +127,14 @@ def create_compact_report():
     run9.bold = True
     run9.font.name = 'Times New Roman'
     
+    # по дисциплине (по центру)
     p10 = doc.add_paragraph()
     p10.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run10 = p10.add_run("по дисциплине")
     run10.font.size = Pt(14)
     run10.font.name = 'Times New Roman'
     
+    # Название дисциплины (по центру)
     p11 = doc.add_paragraph()
     p11.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run11 = p11.add_run("«Информатика и программирование»")
@@ -123,66 +142,86 @@ def create_compact_report():
     run11.bold = True
     run11.font.name = 'Times New Roman'
     
-    for _ in range(5):
+    # Большой отступ перед данными студента
+    for _ in range(8):
         doc.add_paragraph()
     
-    # Данные студента
+    # Студент (по правому краю)
     p12 = doc.add_paragraph()
     p12.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run12 = p12.add_run("Студент")
     run12.font.size = Pt(14)
     run12.font.name = 'Times New Roman'
     
+    # Группа БИН-25-2 (по правому краю)
     p13 = doc.add_paragraph()
     p13.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    run13 = p13.add_run("гр. BDI-BDZ-21")
+    run13 = p13.add_run("гр. БИН-25-2")
     run13.font.size = Pt(14)
     run13.font.name = 'Times New Roman'
     
+    # Ассистент (по правому краю)
     p14 = doc.add_paragraph()
     p14.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run14 = p14.add_run("Ассистент")
     run14.font.size = Pt(14)
     run14.font.name = 'Times New Roman'
     
+    # преподавателя (по правому краю)
     p15 = doc.add_paragraph()
     p15.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run15 = p15.add_run("преподавателя")
     run15.font.size = Pt(14)
     run15.font.name = 'Times New Roman'
     
-    for _ in range(3):
+    # Отступ для подписей
+    for _ in range(4):
         doc.add_paragraph()
     
-    # Подписи
+    # Линия для подписи студента (по правому краю)
     p16 = doc.add_paragraph()
     p16.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run16 = p16.add_run("_________________________")
     run16.font.size = Pt(14)
     run16.font.name = 'Times New Roman'
     
+    # ФИО студента С.А. Головцов (по правому краю)
     p17 = doc.add_paragraph()
     p17.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    run17 = p17.add_run("А.И. Студент")
+    run17 = p17.add_run("С.А. Головцов")
     run17.font.size = Pt(14)
     run17.font.name = 'Times New Roman'
     
+    # Линия для подписи преподавателя (по правому краю)
     p18 = doc.add_paragraph()
     p18.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run18 = p18.add_run("_________________________")
     run18.font.size = Pt(14)
     run18.font.name = 'Times New Roman'
     
+    # ФИО преподавателя (по правому краю)
     p19 = doc.add_paragraph()
     p19.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     run19 = p19.add_run("М.В. Водяницкий")
     run19.font.size = Pt(14)
     run19.font.name = 'Times New Roman'
     
+    # Отступ перед городом и годом
     for _ in range(8):
         doc.add_paragraph()
     
-    # Город и год
+    # Разделительная линия
+    p_line2 = doc.add_paragraph()
+    p_line2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_line2 = p_line2.add_run("―" * 50)
+    run_line2.font.size = Pt(14)
+    run_line2.font.name = 'Times New Roman'
+    
+    # Отступ после линии
+    for _ in range(2):
+        doc.add_paragraph()
+    
+    # Город и год (жирный)
     p20 = doc.add_paragraph()
     p20.alignment = WD_ALIGN_PARAGRAPH.CENTER
     run20 = p20.add_run("Владивосток 2025")
@@ -190,8 +229,9 @@ def create_compact_report():
     run20.bold = True
     run20.font.name = 'Times New Roman'
     
-    # ===== КРАТКОЕ СОДЕРЖАНИЕ =====
+    # ===== СОДЕРЖАНИЕ =====
     doc.add_page_break()
+    print("Создаю содержание...")
     
     p_content = doc.add_paragraph()
     p_content.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -203,25 +243,28 @@ def create_compact_report():
     doc.add_paragraph()
     
     content_items = [
-        "1. Введение........................................................2",
-        "2. Задание 1: Управление кондиционером............................3",
-        "3. Задание 2: Определение времени года............................3", 
-        "4. Задание 3: Расчет возраста собаки..............................4",
-        "5. Задание 4: Проверка делимости на 6.............................4",
-        "6. Задание 5: Проверка надежности пароля..........................5",
-        "7. Задание 6: Определение високосного года........................5",
-        "8. Задание 7: Поиск наименьшего числа.............................5",
-        "9. Задание 8: Расчет скидки в магазине............................6",
-        "10. Задание 9: Определение времени суток..........................6",
-        "11. Задание 10: Проверка простого числа...........................6"
+        "1. Введение........................................................3",
+        "2. Задание 1: Управление кондиционером............................4",
+        "3. Задание 2: Определение времени года............................5", 
+        "4. Задание 3: Расчет возраста собаки..............................6",
+        "5. Задание 4: Проверка делимости на 6.............................7",
+        "6. Задание 5: Проверка надежности пароля..........................8",
+        "7. Задание 6: Определение високосного года........................9",
+        "8. Задание 7: Поиск наименьшего числа............................10",
+        "9. Задание 8: Расчет скидки в магазине...........................11",
+        "10. Задание 9: Определение времени суток.........................12",
+        "11. Задание 10: Проверка простого числа..........................13",
+        "12. Заключение....................................................14",
+        "13. Список использованных источников.............................15"
     ]
     
     for item in content_items:
         p = doc.add_paragraph(item)
         p.style = doc.styles['Normal']
     
-    # ===== КРАТКОЕ ВВЕДЕНИЕ =====
+    # ===== ВВЕДЕНИЕ =====
     doc.add_page_break()
+    print("Создаю раздел 'Введение'...")
     
     p_intro = doc.add_paragraph()
     p_intro.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -241,6 +284,7 @@ def create_compact_report():
         "2. Разработка 10 практических задач", 
         "3. Освоение работы с условными операторами if-else",
         "4. Разработка программ с пользовательским вводом",
+        "5. Анализ эффективности разработанных алгоритмов",
         "",
         "Лабораторная работа выполнена в среде программирования Python 3.x",
         "с использованием стандартных библиотек языка."
@@ -250,22 +294,17 @@ def create_compact_report():
         p = doc.add_paragraph(text)
         p.paragraph_format.line_spacing = 1.5
     
-    # ===== КОМПАКТНЫЕ ЗАДАНИЯ =====
-    doc.add_page_break()
-    
-    # Группируем задания компактно
-    compact_tasks = [
+    # ===== ЗАДАНИЯ =====
+    tasks = [
         {
-            "number": "2",
-            "title": "ЗАДАНИЕ 1: УПРАВЛЕНИЕ КОНДИЦИОНЕРОМ",
+            "title": "2. ЗАДАНИЕ 1: УПРАВЛЕНИЕ КОНДИЦИОНЕРОМ",
             "code": '''def task1():
     temp = float(input("Введите температуру: "))
     print("Кондиционер выключен" if temp >= 20 else "Кондиционер включен")''',
             "explanation": "Программа управляет кондиционером на основе температуры. При температуре 20°C и выше кондиционер выключается, при меньшей температуре - включается."
         },
         {
-            "number": "3", 
-            "title": "ЗАДАНИЕ 2: ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ГОДА",
+            "title": "3. ЗАДАНИЕ 2: ОПРЕДЕЛЕНИЕ ВРЕМЕНИ ГОДА", 
             "code": '''def task2():
     month = int(input("Введите номер месяца: "))
     if month in [12, 1, 2]:
@@ -279,8 +318,7 @@ def create_compact_report():
             "explanation": "Программа определяет время года по номеру месяца. Зима: 12,1,2; Весна: 3,4,5; Лето: 6,7,8; Осень: 9,10,11."
         },
         {
-            "number": "4",
-            "title": "ЗАДАНИЕ 3: РАСЧЕТ ВОЗРАСТА СОБАКИ",
+            "title": "4. ЗАДАНИЕ 3: РАСЧЕТ ВОЗРАСТА СОБАКИ",
             "code": '''def task3():
     age = float(input("Введите возраст собаки: "))
     if age <= 2:
@@ -289,49 +327,9 @@ def create_compact_report():
         result = 21 + (age - 2) * 4
     print(f"Возраст в человеческих годах: {result}")''',
             "explanation": "Перевод возраста собаки в человеческие годы. Первые 2 года: каждый год = 10.5 человеческих лет, последующие: каждый год = 4 человеческих года."
-        }
-    ]
-    
-    # Добавляем первые 3 задания
-    print("Создаю компактные задания...")
-    
-    for task in compact_tasks:
-        # Заголовок задания
-        p_title = doc.add_paragraph()
-        p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        run_title = p_title.add_run(f"{task['number']}. {task['title']}")
-        run_title.font.size = Pt(14)
-        run_title.bold = True
-        run_title.font.name = 'Times New Roman'
-        
-        doc.add_paragraph()
-        
-        # Код
-        p_code_title = doc.add_paragraph("Код программы:")
-        p_code_title.style = doc.styles['Normal']
-        
-        p_code = doc.add_paragraph(task['code'])
-        p_code.style = doc.styles['Normal']
-        
-        doc.add_paragraph()
-        
-        # Объяснение
-        p_expl = doc.add_paragraph("Объяснение:")
-        p_expl.style = doc.styles['Normal']
-        
-        p_expl_text = doc.add_paragraph(task['explanation'])
-        p_expl_text.style = doc.styles['Normal']
-        p_expl_text.paragraph_format.line_spacing = 1.5
-        
-        doc.add_paragraph()
-    
-    # ===== ВТОРАЯ СТРАНИЦА С ЗАДАНИЯМИ =====
-    doc.add_page_break()
-    
-    more_compact_tasks = [
+        },
         {
-            "number": "5",
-            "title": "ЗАДАНИЕ 4: ПРОВЕРКА ДЕЛИМОСТИ НА 6",
+            "title": "5. ЗАДАНИЕ 4: ПРОВЕРКА ДЕЛИМОСТИ НА 6",
             "code": '''def task4():
     num = input("Введите число: ")
     last_digit = int(num[-1])
@@ -344,8 +342,7 @@ def create_compact_report():
             "explanation": "Проверка делимости на 6. Число делится на 6 если: оно четное (последняя цифра делится на 2) И сумма цифр делится на 3."
         },
         {
-            "number": "6", 
-            "title": "ЗАДАНИЕ 5: ПРОВЕРКА НАДЕЖНОСТИ ПАРОЛЯ",
+            "title": "6. ЗАДАНИЕ 5: ПРОВЕРКА НАДЕЖНОСТИ ПАРОЛЯ",
             "code": '''def task5():
     pwd = input("Введите пароль: ")
     errors = []
@@ -369,32 +366,40 @@ def create_compact_report():
         }
     ]
     
-    # Добавляем задания 4-5
-    for task in more_compact_tasks:
+    # Добавляем первые 5 заданий
+    for i, task in enumerate(tasks):
+        doc.add_page_break()
+        print(f"Создаю {task['title']}...")
+        
+        # Заголовок задания
         p_title = doc.add_paragraph()
         p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        run_title = p_title.add_run(f"{task['number']}. {task['title']}")
+        run_title = p_title.add_run(task['title'])
         run_title.font.size = Pt(14)
         run_title.bold = True
         run_title.font.name = 'Times New Roman'
         
         doc.add_paragraph()
         
+        # Код задания
         p_code_title = doc.add_paragraph("Код программы:")
+        p_code_title.style = doc.styles['Normal']
+        
         p_code = doc.add_paragraph(task['code'])
+        p_code.style = doc.styles['Normal']
         
         doc.add_paragraph()
         
-        p_expl_title = doc.add_paragraph("Объяснение:")
-        p_expl = doc.add_paragraph(task['explanation'])
-        p_expl.paragraph_format.line_spacing = 1.5
+        # Объяснение
+        p_expl = doc.add_paragraph("Объяснение:")
+        p_expl.style = doc.styles['Normal']
         
-        doc.add_paragraph()
+        p_expl_text = doc.add_paragraph(task['explanation'])
+        p_expl_text.style = doc.styles['Normal']
+        p_expl_text.paragraph_format.line_spacing = 1.5
     
-    # ===== ТРЕТЬЯ СТРАНИЦА С ЗАДАНИЯМИ =====
-    doc.add_page_break()
-    
-    final_tasks = [
+    # ===== ОСТАЛЬНЫЕ ЗАДАНИЯ =====
+    more_tasks = [
         {
             "number": "7",
             "title": "ЗАДАНИЕ 6: ОПРЕДЕЛЕНИЕ ВИСОКОСНОГО ГОДА",
@@ -421,7 +426,7 @@ def create_compact_report():
         },
         {
             "number": "9",
-            "title": "ЗАДАНИЕ 8: РАСЧЕТ СКИДКИ В МАГАЗИНЕ",
+            "title": "ЗАДАНИЕ 8: РАСЧЕТ СКИДКИ В МАГАЗИНЕ", 
             "code": '''def task8():
     amount = float(input("Введите сумму покупки: "))
     if amount < 1000:
@@ -440,7 +445,7 @@ def create_compact_report():
         },
         {
             "number": "10",
-            "title": "ЗАДАНИЕ 9: ОПРЕДЕЛЕНИЕ ВРЕМЕНИ СУТОК", 
+            "title": "ЗАДАНИЕ 9: ОПРЕДЕЛЕНИЕ ВРЕМЕНИ СУТОК",
             "code": '''def task9():
     hour = int(input("Введите час (0-23): "))
     if 0 <= hour <= 5:
@@ -455,7 +460,7 @@ def create_compact_report():
         },
         {
             "number": "11",
-            "title": "ЗАДАНИЕ 10: ПРОВЕРКА ПРОСТОГО ЧИСЛА",
+            "title": "ЗАДАНИЕ 10: ПРОВЕРКА ПРОСТОГО ЧИСЛА", 
             "code": '''def task10():
     num = int(input("Введите число: "))
     if num < 2:
@@ -471,8 +476,11 @@ def create_compact_report():
         }
     ]
     
-    # Добавляем остальные задания компактно
-    for task in final_tasks:
+    # Добавляем остальные задания
+    for task in more_tasks:
+        doc.add_page_break()
+        print(f"Создаю задание {task['number']}...")
+        
         p_title = doc.add_paragraph()
         p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
         run_title = p_title.add_run(f"{task['number']}. {task['title']}")
@@ -490,14 +498,75 @@ def create_compact_report():
         p_expl_title = doc.add_paragraph("Объяснение:")
         p_expl = doc.add_paragraph(task['explanation'])
         p_expl.paragraph_format.line_spacing = 1.5
-        
-        doc.add_paragraph()
     
-    # Сохраняем компактный документ
-    filename = "КРАТКИЙ_ОТЧЕТ_5_СТРАНИЦ.docx"
+    # ===== ЗАКЛЮЧЕНИЕ =====
+    doc.add_page_break()
+    print("Создаю заключение...")
+    
+    p_conc = doc.add_paragraph()
+    p_conc.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_conc = p_conc.add_run("12. ЗАКЛЮЧЕНИЕ")
+    run_conc.font.size = Pt(16)
+    run_conc.bold = True
+    run_conc.font.name = 'Times New Roman'
+    
+    doc.add_paragraph()
+    
+    conclusion_text = [
+        "В ходе выполнения лабораторной работы были успешно решены 10 практических",
+        "задач на языке Python. Были освоены следующие навыки:",
+        "",
+        "1. Работа с условными операторами if-elif-else",
+        "2. Обработка пользовательского ввода",
+        "3. Использование тернарных операторов", 
+        "4. Работа со строками и преобразование типов данных",
+        "5. Реализация математических алгоритмов",
+        "6. Проверка различных условий и критериев",
+        "",
+        "Все задачи были решены оптимально с точки зрения алгоритмической сложности.",
+        "Разработанные программы демонстрируют практическое применение условных",
+        "операторов в реальных сценариях.",
+        "",
+        "Результаты работы показывают уверенное владение базовыми конструкциями",
+        "языка Python и умение применять их для решения практических задач."
+    ]
+    
+    for text in conclusion_text:
+        p = doc.add_paragraph(text)
+        p.paragraph_format.line_spacing = 1.5
+    
+    # ===== СПИСОК ИСТОЧНИКОВ =====
+    doc.add_page_break()
+    print("Создаю список источников...")
+    
+    p_bibl = doc.add_paragraph()
+    p_bibl.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run_bibl = p_bibl.add_run("13. СПИСОК ИСПОЛЬЗОВАННЫХ ИСТОЧНИКОВ")
+    run_bibl.font.size = Pt(16)
+    run_bibl.bold = True
+    run_bibl.font.name = 'Times New Roman'
+    
+    doc.add_paragraph()
+    
+    sources = [
+        "1. ГОСТ 7.32-2001 'Отчет о научно-исследовательской работе'",
+        "2. ГОСТ 7.0.5-2008 'Библиографическая запись'", 
+        "3. Официальная документация Python: https://docs.python.org",
+        "4. Владивостокский государственный университет. Стандарты оформления работ",
+        "5. Лутц М. 'Изучаем Python'. - СПб.: Символ-Плюс, 2022",
+        "6. Python Software Foundation. Python 3.11 Documentation"
+    ]
+    
+    for source in sources:
+        p = doc.add_paragraph(source)
+        p.paragraph_format.line_spacing = 1.5
+    
+    # Сохраняем полный документ
+    filename = "ПОЛНЫЙ_ОТЧЕТ_ЛАБОРАТОРНАЯ_1.docx"
     doc.save(filename)
     
-    print(f"✓ Краткий отчет создан: {filename}")
+    print(f"✓ Полный отчет создан: {filename}")
+    print(f"✓ Объем: около 15-20 страниц")
     return filename
 
 def install_requirements():
@@ -507,17 +576,39 @@ def install_requirements():
 
 if __name__ == "__main__":
     try:
-        print("Создание КРАТКОГО отчета (5 страниц)...")
-        filename = create_compact_report()
+        print("=" * 60)
+        print("СОЗДАНИЕ ПОЛНОГО ОТЧЕТА С ТИТУЛЬНЫМ ЛИСТОМ")
+        print("=" * 60)
         
-        print(f"✓ Готово! Файл: {filename}")
-        print(f"✓ Путь: {os.path.abspath(filename)}")
+        # Создаем полный отчет
+        filename = create_complete_report()
+        
+        print("\n" + "=" * 60)
+        print("✓ ОТЧЕТ УСПЕШНО СОЗДАН!")
+        print("=" * 60)
+        print(f"Файл: {filename}")
+        print(f"Размер: {os.path.getsize(filename)} байт")
+        print(f"Путь: {os.path.abspath(filename)}")
+        print(f"Студент: С.А. Головцов")
+        print(f"Группа: БИН-25-2")
         
         # Открываем файл
+        print("\nОткрываю файл в Word...")
         open_file_in_word(filename)
+        
+        print("\n" + "=" * 60)
+        print("СОДЕРЖАНИЕ ОТЧЕТА:")
+        print("- Точный титульный лист (как в образце)")
+        print("- Содержание") 
+        print("- Введение")
+        print("- 10 заданий с кодом и объяснениями")
+        print("- Заключение")
+        print("- Список источников")
+        print("=" * 60)
         
     except ImportError:
         print("✗ Библиотека python-docx не установлена!")
         install_requirements()
     except Exception as e:
-        print(f"✗ Ошибка: {e}")
+        print(f"✗ Ошибка при создании отчета: {e}")
+        install_requirements()
