@@ -1,12 +1,13 @@
 print('задание 1:')
+temp = int(input('введите температуру:'))
 def task1():
-    temp = float(input("Введите температуру: "))
     print("Кондиционер выключен" if temp >= 20 else "Кондиционер включен")
+task1()
 
 # Задание 2: Сезоны года
 print('задание 2:')
+month = int(input("Введите номер месяца: "))
 def task2():
-    month = int(input("Введите номер месяца: "))
     if month in [12, 1, 2]:
         print("Это зима")
     elif month in [3, 4, 5]:
@@ -15,21 +16,23 @@ def task2():
         print("Это лето")
     else:
         print("Это осень")
+task2()
 
 # Задание 3: Возраст собаки
 print('задание 3:')
+age = float(input("Введите возраст собаки: "))
 def task3():
-    age = float(input("Введите возраст собаки: "))
     if age <= 2:
         result = age * 10.5
     else:
         result = 21 + (age - 2) * 4
     print(f"Возраст в человеческих годах: {result}")
+task3()
 
 # Задание 4: Деление на 6
 print('задание 4:')
+num = input("Введите число: ")
 def task4():
-    num = input("Введите число: ")
     last_digit = int(num[-1])
     digit_sum = sum(int(d) for d in num)
     
@@ -37,13 +40,13 @@ def task4():
         print("Делится на 6")
     else:
         print("Не делится на 6")
+task4()
 
 # Задание 5: Проверка пароля
 print('задание 5:')
+pwd = input("Введите пароль: ")
+errors = []
 def task5():
-    pwd = input("Введите пароль: ")
-    errors = []
-    
     if len(pwd) < 8:
         errors.append("длина менее 8 символов")
     if not any(c.isupper() for c in pwd):
@@ -59,31 +62,34 @@ def task5():
         print("Пароль ненадежный:", ", ".join(errors))
     else:
         print("Пароль надежный")
+task5()
 
 # Задание 6: Високосный год
 print('задание 6:')
+year = int(input("Введите год: "))
 def task6():
-    year = int(input("Введите год: "))
     if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
         print(f"{year} - високосный")
     else:
         print(f"{year} - невисокосный")
+task6()
 
 # Задание 7: Наименьшее число
 print('задание 7:')
+a, b, c = map(float, input("Введите три числа: ").split())
 def task7():
-    a, b, c = map(float, input("Введите три числа: ").split())
     min_num = a
     if b < min_num:
         min_num = b
     if c < min_num:
         min_num = c
     print(f"Наименьшее: {min_num}")
+task7()
 
 # Задание 8: Скидка в магазине
 print('задание 8:')
+amount = float(input("Введите сумму покупки: "))
 def task8():
-    amount = float(input("Введите сумму покупки: "))
     if amount < 1000:
         discount = 0
     elif amount <= 5000:
@@ -96,11 +102,12 @@ def task8():
     total = amount * (1 - discount / 100)
     print(f"Скидка: {discount}%")
     print(f"К оплате: {total}")
+task8()
 
 # Задание 9: Время суток
 print('задание 9:')
+hour = int(input("Введите час (0-23): "))
 def task9():
-    hour = int(input("Введите час (0-23): "))
     if 0 <= hour <= 5:
         print("Ночь")
     elif 6 <= hour <= 11:
@@ -109,11 +116,12 @@ def task9():
         print("День")
     else:
         print("Вечер")
+task9()
 
 # Задание 10: Простое число
 print('задание 10:')
+num = int(input("Введите число: "))
 def task10():
-    num = int(input("Введите число: "))
     if num < 2:
         print("Не простое")
         return
@@ -123,3 +131,4 @@ def task10():
             print(f"{num} - составное")
             return
     print(f"{num} - простое")
+task10()
