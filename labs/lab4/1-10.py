@@ -59,7 +59,7 @@ def task5():
         errors.append("нет спецсимволов")
     
     if errors:
-        print("Пароль ненадежный:", ", ".join(errors))
+        print("Пароль ненадежный:", ", ",errors)
     else:
         print("Пароль надежный")
 task5()
@@ -88,7 +88,7 @@ task7()
 
 # Задание 8: Скидка в магазине
 print('задание 8:')
-amount = float(input("Введите сумму покупки: "))
+amount = map(float(input("Введите сумму покупки: ")))
 def task8():
     if amount < 1000:
         discount = 0
@@ -119,14 +119,12 @@ def task9():
 task9()
 
 # Задание 10: Простое число
-print('задание 10:')
 num = int(input("Введите число: "))
 def task10():
     if num < 2:
         print("Не простое")
         return
-    
-    for i in range(2, int(num**0.5) + 1):
+    for i in range(2, num):
         if num % i == 0:
             print(f"{num} - составное")
             return
