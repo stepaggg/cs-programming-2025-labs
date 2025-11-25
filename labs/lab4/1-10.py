@@ -88,7 +88,7 @@ task7()
 
 # Задание 8: Скидка в магазине
 print('задание 8:')
-amount = map(float(input("Введите сумму покупки: ")))
+amount = float(input("Введите сумму покупки: "))
 def task8():
     if amount < 1000:
         discount = 0
