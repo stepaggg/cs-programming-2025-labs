@@ -35,7 +35,7 @@ print("Задание 6")
 items = ["a", "b", "c"]
 d = {}
 for item in items:
-    d[item] = item
+    d[item] = item 
 print(d)
 
 print("Задание 7")
@@ -49,34 +49,39 @@ if word in rus_eng:
 
 print("Задание 8")
 import random
-rules = {
+
+wins = {
     "камень": ["ножницы", "ящерица"],
     "ножницы": ["бумага", "ящерица"],
     "бумага": ["камень", "спок"],
     "ящерица": ["бумага", "спок"],
-    "спок": ["камень", "ножницы"]
+    "спок": ["ножницы", "камень"]
 }
-choices = list(rules.keys())
-user = "камень"
-comp = random.choice(choices)
-print(f"Вы: {user}, Компьютер: {comp}")
-if user == comp:
-    print("Ничья")
-elif comp in rules[user]:
-    print("Вы выиграли")
-else:
-    print("Компьютер выиграл")
 
-print("Задание 9")
-words = ["яблоко", "груша", "банан", "киви", "ананас"]
-result_dict = {}
-for word in words:
-    letter = word[0]
-    if letter not in result_dict:
-        result_dict[letter] = []
-    result_dict[letter].append(word)
-print(result_dict)
+print("Игра: Камень-Ножницы-Бумага-Ящерица-Спок")
+print("Выбери: камень, ножницы, бумага, ящерица, спок")
 
+while True:
+    player = input("Твой выбор: ").lower()
+    if player not in wins:
+        print("Ошибка. Попробуй еще")
+        continue
+    
+    computer = random.choice(list(wins.keys()))
+    print(f"Ты: {player}, Компьютер: {computer}")
+    
+    if player == computer:
+        print("Ничья!")
+    elif computer in wins[player]:
+        print("Ты выиграл!")
+    else:
+        print("Ты проиграл!")
+    
+    again = input("Еще раз? (да/нет): ").lower()
+    if again != "да":
+        break
+
+print("Конец игры")
 print("Задание 10")
 students = [("Анна", [5, 4, 5]), ("Иван", [3, 4, 4]), ("Мария", [5, 5, 5])]
 averages = {}
