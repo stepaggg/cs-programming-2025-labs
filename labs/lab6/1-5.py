@@ -19,32 +19,31 @@ def time_converter(value, from_unit, to_unit):
 
 # задание 2
 def bank_profit(money, years):
+    
     if money < 30000:
-        return "Ошибка: минимальный вклад 30000 рублей"
+        return "Минимум 30000 рублей"
     
     
-    extra = (money // 10000) * 0.003
-    if extra > 0.05:
-        extra = 0.05
-    base_rate = 0.03 + extra
+    bonus = (money // 10000) * 0.003
+    if bonus > 0.05:  
+        bonus = 0.05
     
     
+    base_rate = 0.03 + bonus  
+    
+   
     if years <= 3:
-        term_rate = 0.03
-    elif 4 <= years <= 6:
-        term_rate = 0.05
+        plus_rate = 0.03     
+    elif years <= 6:
+        plus_rate = 0.05     
     else:
-        term_rate = 0.02
+        plus_rate = 0.02     
     
-    total_rate = base_rate + term_rate
+   
+    rate = base_rate + plus_rate
     
     
-    total = money
-    for _ in range(years):
-        total = total * (1 + total_rate)
-    
-    profit = total - money
-    return round(profit, 2)
+    profit = money * rate * years
 
 # задание 3
 def is_prime(num):
